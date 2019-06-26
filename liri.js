@@ -126,7 +126,7 @@ function writeToFile(stringToWrite) {
             return console.log(err);
         }
 
-        console.log("The results have been successfully logged");
+        //console.log("The results have been successfully logged");
     });
 }
 
@@ -161,5 +161,5 @@ async function email() {
         ]
     }
     var info = await transporter.sendMail(message);
-    console.log(nodemailer.getTestMessageUrl(info));i
+    console.log(nodemailer.getTestMessageUrl(info));
 }
