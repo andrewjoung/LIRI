@@ -13,7 +13,7 @@ This application uses the bandsintown API, the node Spotify API, as well as the 
 
 ## Instructions
     1. Clone the repository 
-    1. '''npm install'' to install all necessary dependencies
+    2. '''npm install''' to install all necessary dependencies
         * For this application we use node-spotify-api, axios, fs, and nodemailer
-    1. From the directory of the repository the user can execute the following commands:
+    3. From the directory of the repository the user can execute the following commands:
         * '''node liri.js concert-this <artist>''' 
