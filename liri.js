@@ -4,6 +4,7 @@ var moment = require('moment'); //initalize moment
 var keys = require("./keys.js"); //grab spotify keys from keys.js
 var axios = require('axios'); //initalize axios
 var fs = require('fs');
+var nodemailer = require('nodemailer'); //for emailing
 
 var userInput = process.argv[2]; //the user command
 var searchString = process.argv.slice(3).join(" ") //the search term with spaces
@@ -112,6 +113,9 @@ function mainFunction() {
                 console.log(displayString);
                 writeToFile(displayString);
             });
+    } else if (userInput === "mail-log") {
+        email();
+        email().catch(console.error);
     }
 }
 
@@ -124,4 +128,38 @@ function writeToFile(stringToWrite) {
 
         console.log("The results have been successfully logged");
     });
+}
+
+//bonus task from Trae:
+//if user command is mail-log, email the log.txt file to the given email address
+//returns an ethereal url where you can view the email
+//doesn't actually email to inbox
+async function email() {
+    console.log("in this funciton");
+    var testAccount = await nodemailer.createTestAccount();
+
+    var transporter = nodemailer.createTransport({
+        host:"smtp.ethereal.email",
+        port: 587,
+        secure: false,
+        auth: {
+            user: testAccount.user,
+            pass: testAccount.pass
+        }
+    });
+
+    var message = {
+        from: 'andrew.joung@gmail.com',
+        to: searchString,
+        subject: 'Results',
+        text: 'See the attatchment',
+        attachments: [
+            {
+                filename: 'log.txt',
+                path: './log.txt'
+            }
+        ]
+    }
+    var info = await transporter.sendMail(message);
+    console.log(nodemailer.getTestMessageUrl(info));i
 }
